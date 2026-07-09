@@ -40,6 +40,7 @@
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       overflow-x: hidden;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"><path d="M14.5 1 4 15h6.5L11 25 22 10h-6.5z" fill="%23ffbe3b" stroke="%23050608" stroke-width="1.2" stroke-linejoin="round"/></svg>') 4 2, auto;
       background:
         radial-gradient(circle at 18% 8%, rgba(255, 190, 59, 0.16), transparent 28rem),
         radial-gradient(circle at 82% 16%, rgba(121, 240, 255, 0.12), transparent 26rem),
@@ -157,28 +158,18 @@
     }
 
     .hero {
+      position: relative;
+      width: 100%;
       min-height: 100svh;
-      display: grid;
-      align-items: center;
-      padding-top: 118px;
-      padding-bottom: 48px;
     }
 
     .terminal-deck {
       position: relative;
-      display: grid;
-      grid-template-columns: 1fr;
-      min-height: min(680px, calc(100svh - 150px));
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: var(--radius);
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.12), transparent 34%),
-        rgba(8, 11, 13, 0.72);
-      box-shadow:
-        0 34px 120px rgba(0,0,0,0.58),
-        0 0 0 1px rgba(255,190,59,0.08),
-        inset 0 1px 0 rgba(255,255,255,0.12);
-      backdrop-filter: blur(24px) saturate(160%);
+      width: 100%;
+      height: 100svh;
+      border: none;
+      border-radius: 0;
+      background: rgba(8, 11, 13, 0.72);
       overflow: hidden;
     }
 
@@ -204,41 +195,34 @@
     }
 
     .deck-copy {
-      position: relative;
-      z-index: 2;
+      position: absolute;
+      inset: 0;
+      z-index: 3;
       padding: clamp(28px, 5.5vw, 62px);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-end;
       gap: 34px;
     }
 
     .hero-team-photo {
-      position: relative;
-      z-index: 2;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
       margin: 0;
-      min-height: clamp(260px, 42vw, 520px);
-      border-bottom: 1px solid var(--line);
       overflow: hidden;
       background:
         radial-gradient(circle at 50% 0%, rgba(255,190,59,0.2), transparent 30rem),
         rgba(255,255,255,0.04);
-      transition: transform 260ms ease, box-shadow 260ms ease;
-    }
-
-    .hero-team-photo:hover {
-      transform: translateY(-4px) scale(1.008);
-      box-shadow: 0 24px 80px rgba(0,0,0,0.38);
     }
 
     .hero-team-photo img {
       width: 100%;
       height: 100%;
-      min-height: inherit;
       display: block;
-      object-fit: contain;
-      object-position: center center;
-      filter: saturate(0.86) contrast(1.06);
+      object-fit: cover;
+      object-position: center 22%;
+      filter: saturate(0.82) contrast(1.08);
     }
 
     .hero-team-photo::after {
@@ -246,20 +230,9 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(5,6,8,0.04), rgba(5,6,8,0.78)),
+        linear-gradient(0deg, rgba(5,6,8,0.94) 4%, rgba(5,6,8,0.55) 46%, rgba(5,6,8,0.42) 100%),
         repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 7px);
       pointer-events: none;
-    }
-
-    .hero-title-overlay {
-      position: absolute;
-      left: clamp(20px, 5vw, 62px);
-      right: clamp(20px, 5vw, 62px);
-      bottom: clamp(22px, 5vw, 58px);
-      z-index: 3;
-      display: grid;
-      gap: 14px;
-      max-width: 860px;
     }
 
     .deck-topline,
@@ -436,6 +409,58 @@
       margin: 12px 0 0;
     }
 
+    details.about-card {
+      padding: 0;
+    }
+
+    details.about-card summary {
+      padding: 22px;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    details.about-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .about-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      color: var(--cyan);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .about-toggle::after {
+      content: "▾";
+      display: inline-block;
+      transition: transform 220ms ease;
+    }
+
+    details.about-card[open] .about-toggle::after {
+      transform: rotate(180deg);
+    }
+
+    .about-detail {
+      margin: 0 22px 22px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.36);
+    }
+
+    .about-detail img {
+      width: 100%;
+      max-height: 260px;
+      display: block;
+      object-fit: cover;
+      filter: saturate(0.86) contrast(1.05);
+    }
+
     .prose-panel {
       margin-bottom: 14px;
       padding: clamp(22px, 4vw, 34px);
@@ -508,6 +533,14 @@
       gap: 18px;
       padding: 0 24px 24px;
       align-items: center;
+    }
+
+    .mentor-detail.single {
+      grid-template-columns: 1fr;
+    }
+
+    .mentor-detail.single p + p {
+      margin-top: 12px;
     }
 
     .mentor-image {
@@ -719,13 +752,45 @@
 
     .reveal {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 750ms ease, transform 750ms ease;
+      transform: translateY(38px) scale(0.97);
+      transition: opacity 850ms cubic-bezier(.22,1,.36,1), transform 850ms cubic-bezier(.22,1,.36,1);
     }
 
     .reveal.in {
       opacity: 1;
       transform: none;
+    }
+
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      z-index: 60;
+      background: linear-gradient(90deg, var(--amber), var(--cyan));
+      box-shadow: 0 0 12px rgba(255,190,59,0.6);
+      pointer-events: none;
+    }
+
+    .hero-team-photo img {
+      will-change: transform;
+    }
+
+    .tilt {
+      transform-style: preserve-3d;
+      transition: transform 420ms cubic-bezier(.22,1,.36,1), box-shadow 420ms ease, border-color 420ms ease;
+      will-change: transform;
+    }
+
+    .tilt:hover,
+    .tilt:focus-within {
+      border-color: var(--line-hot);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 30px rgba(255,190,59,0.12);
+    }
+
+    .tilt.tilting {
+      transition: box-shadow 420ms ease, border-color 420ms ease;
     }
 
     @media (max-width: 980px) {
@@ -829,6 +894,7 @@
 </head>
 <body>
   <canvas id="starfield" aria-hidden="true"></canvas>
+  <div id="scroll-progress" aria-hidden="true"></div>
   <div class="site">
     <header class="nav">
       <a class="brand" href="#top" aria-label="Spark Gears Initiative home">
@@ -841,13 +907,14 @@
         <a href="#events">Events</a>
         <a href="#mentors">Mentor Teams</a>
         <a href="#members">Members</a>
+        <a href="#host">Host a Program</a>
         <a href="#join">Join</a>
         <a href="#donate">Donate</a>
       </nav>
     </header>
 
     <main id="top">
-      <section class="hero section">
+      <section class="hero">
         <div class="terminal-deck">
           <figure class="hero-team-photo reveal">
             <img src="assets/teamphoto.jpg" alt="Spark Gears students gathered for a team photo" />
@@ -891,9 +958,30 @@
           <p>Our work is grounded in practical learning. Students gain confidence through hands-on projects that teach programming, CAD, the engineering design process, and FTC-style competitive robotics. Each course is designed to help students build, test, troubleshoot, and explain their work with the support of experienced student mentors.</p>
         </div>
         <div class="about-grid">
-          <article class="about-card reveal"><strong>Learn by Building</strong><p>Students develop confidence through projects that turn engineering ideas into working mechanisms, code, and presentations.</p></article>
-          <article class="about-card reveal"><strong>Access First</strong><p>We remove barriers by offering free courses and welcoming students of all backgrounds to explore robotics.</p></article>
-          <article class="about-card reveal"><strong>Share What Works</strong><p>We publish course materials and provide teaching resources free of charge so lessons can be repeated and improved.</p></article>
+          <details class="about-card reveal tilt">
+            <summary>
+              <strong>Learn by Building</strong>
+              <p>Students develop confidence through projects that turn engineering ideas into working mechanisms, code, and presentations.</p>
+              <span class="about-toggle">View example</span>
+            </summary>
+            <div class="about-detail"><img src="assets/outreach/curie-autonomous-robotics-spring.jpg" alt="Students at the Curie Autonomous Robotics Course working with laptops and an Arduino" /></div>
+          </details>
+          <details class="about-card reveal tilt">
+            <summary>
+              <strong>Access First</strong>
+              <p>We remove barriers by offering free courses and welcoming students of all backgrounds to explore robotics.</p>
+              <span class="about-toggle">View example</span>
+            </summary>
+            <div class="about-detail"><img src="assets/mission/access-first.png" alt="Young students driving a competitive robot at a public showcase" /></div>
+          </details>
+          <details class="about-card reveal tilt">
+            <summary>
+              <strong>Share What Works</strong>
+              <p>We publish course materials and provide teaching resources free of charge so lessons can be repeated and improved.</p>
+              <span class="about-toggle">View example</span>
+            </summary>
+            <div class="about-detail"><img src="assets/mission/share-works.png" alt="Gearbox Library logo, our open curriculum library" /></div>
+          </details>
         </div>
       </section>
 
@@ -906,9 +994,9 @@
           <p>The initiative is structured around durable, community-run education rather than one-time demonstrations.</p>
         </div>
         <div class="goals-grid">
-          <article class="goal-card reveal"><strong>Accessible STEM</strong><p>Bring robotics, coding, CAD, and engineering design to students who may not otherwise have access to structured technical programs.</p></article>
-          <article class="goal-card reveal"><strong>Reusable Curriculum</strong><p>Maintain lesson plans, slides, activities, guides, and event formats that other groups can use without starting from scratch.</p></article>
-          <article class="goal-card reveal"><strong>Local Leadership</strong><p>Help robotics teams, STEM clubs, schools, and community organizations plan logistics, market to students, and teach in their own communities.</p></article>
+          <article class="goal-card reveal tilt"><strong>Accessible STEM</strong><p>Bring robotics, coding, CAD, and engineering design to students who may not otherwise have access to structured technical programs.</p></article>
+          <article class="goal-card reveal tilt"><strong>Reusable Curriculum</strong><p>Maintain lesson plans, slides, activities, guides, and event formats that other groups can use without starting from scratch.</p></article>
+          <article class="goal-card reveal tilt"><strong>Local Leadership</strong><p>Help robotics teams, STEM clubs, schools, and community organizations plan logistics, market to students, and teach in their own communities.</p></article>
         </div>
       </section>
 
@@ -921,14 +1009,13 @@
           <p>Our programs turn open teaching materials into real learning experiences: hackathons, library stations, robotics courses, camps, kickoff events, and public showcases.</p>
         </div>
         <div class="events">
-          <article class="event reveal"><div class="event-media"><img src="assets/outreach/code-crush-hackathon-2.jpg" alt="Code Crush Hackathon 2 participants" /></div><div class="event-copy"><time>May 2026</time><h3>Code Crush Hackathon 2</h3><p>Our second annual hackathon coding competition invited students to spend 24 hours creating a game or project related to a shared theme. The event also included bootcamps in marketing, AI/ML, Java, CAD, MVP pitching, and project presentation so participants could strengthen both technical and communication skills.</p></div></article>
-          <article class="event reveal"><div class="event-media"><img src="assets/outreach/curie-autonomous-robotics-spring.jpg" alt="Spring autonomous robotics course" /></div><div class="event-copy"><time>Spring 2026</time><h3>Curie Autonomous Robotics Course</h3><p>Students learned Arduino development, servo control, motor-based robot movement, sensors, and how to troubleshoot hardware and software issues. The course was built for students with no prior robotics, programming, or technical experience and used project work to make abstract engineering concepts concrete.</p></div></article>
-          <article class="event reveal"><div class="event-media"><img src="assets/outreach/library-events.jpg" alt="Library robotics event" /></div><div class="event-copy"><time>Ongoing</time><h3>Library Events</h3><p>Our library events create open, approachable STEM stations for 3D printing, Java programming, robot driving, AI experiments, and hands-on hardware challenges. These sessions are designed so students can rotate between activities, ask questions, and experience robotics without needing a formal team background.</p></div></article>
-          <article class="event reveal"><div class="event-media"><img src="assets/outreach/code-crush-hackathon-1.jpg" alt="First Code Crush Hackathon" /></div><div class="event-copy"><time>June 2025</time><h3>Code Crush Hackathon</h3><p>Our first annual hackathon coding competition gave students 24 hours to create a themed game or project. We also conducted introductory bootcamps in Python, Java, and AI so newer participants could learn core tools before building and presenting their final projects.</p></div></article>
-          <article class="event reveal"><div class="event-media"><img src="assets/outreach/robotics-summer-camp-2025.jpg" alt="Robotics summer camp" /></div><div class="event-copy"><time>August 2025</time><h3>Robotics Summer Camp</h3><p>Students created their own mini FTC team for a week. Together, they learned about FIRST, built and programmed an FTC-style robot, practiced collaboration, and showcased their final robot to an audience.</p></div></article>
-          <article class="event reveal"><div class="event-media"><img src="assets/outreach/decode-kickoff-2025.jpg" alt="Decode kickoff event" /></div><div class="event-copy"><time>September 2025</time><h3>Decode Kickoff Event</h3><p>In partnership with Curie Learning, we conducted a kickoff event for the 2025-26 FTC Decode season with activities and a game reveal livestream. The event helped students connect the official challenge release to early strategy, design thinking, and team planning.</p></div></article>
-          <article class="event reveal"><div class="event-media"><img src="assets/outreach/acl-maker-showcase.jpg" alt="ACL Maker Showcase booth" /></div><div class="event-copy"><time>March 2025</time><h3>ACL Maker Showcase</h3><p>At the Academies of Loudoun Maker Showcase, we presented FIRST, competitive robotics, and our team’s engineering process to educators, parents, and students. The booth included robot demos, hardware and software explanations, outreach displays, and conversations about how students can get involved in robotics.</p></div></article>
-          <article class="event reveal"><div class="event-media"><img src="assets/outreach/online-robotics-bootcamp.jpg" alt="Online robotics bootcamp" /></div><div class="event-copy"><time>February 2025</time><h3>Online Robotics Bootcamp</h3><p>In partnership with Curie Learning, we conducted online sessions covering the basics of FIRST, FTC, and robotics. Topics included hardware parts, 3D modeling, programming concepts, a Python crash course, marketing, logo design, and a live robot demo.</p></div></article>
+          <article class="event reveal tilt"><div class="event-media"><img src="assets/outreach/curie-autonomous-robotics-spring-3.jpg" alt="Summer Autonomous Robotics Course 2026 students working with Arduino boards" /></div><div class="event-copy"><time>Jun 20 &ndash; Jul 21, 2026</time><h3>Summer Autonomous Robotics Course 2026</h3><p>A four-week program for rising 7th&ndash;10th graders covering Arduino development, including servo control, motor movement, laser distance tracking, and color sensing. The course culminates in a final project where students build autonomous, object-organizing robots, and every student takes home their own Arduino UNO.</p></div></article>
+          <article class="event reveal tilt"><div class="event-media"><img src="assets/outreach/curie-autonomous-robotics-spring-2.jpg" alt="Curie Autonomous Robotics Course students at laptops" /></div><div class="event-copy"><time>Spring 2026</time><h3>Curie Autonomous Robotics Course</h3><p>Students learned Arduino development, servo control, motor-based robot movement, and sensors, building autonomous object-organizing robots. The course was built for students with no prior robotics, programming, or technical experience and used project work to make abstract engineering concepts concrete.</p></div></article>
+          <article class="event reveal tilt"><div class="event-media"><img src="assets/outreach/academic-year-camp-2025.jpg" alt="2025 Academic Year Camp students" /></div><div class="event-copy"><time>Late 2025</time><h3>2025 Academic Year Camp</h3><p>A four-week program where students formed their own mock robotics team, learning about FIRST and every part of running a team &mdash; hardware, software, and outreach &mdash; mentored by our team members.</p></div></article>
+          <article class="event reveal tilt"><div class="event-media"><img src="assets/outreach/robotics-summer-camp-2025.jpg" alt="Robotics Summer Camp 2025" /></div><div class="event-copy"><time>August 2025</time><h3>Robotics Summer Camp 2025</h3><p>Our first in-person summer camp, in partnership with Curie Learning. Students created their own mini FTC team for a week, learned about FIRST, built and programmed an FTC-style robot, and showcased their final robot to an audience.</p></div></article>
+          <article class="event reveal tilt"><div class="event-media"><img src="assets/outreach/acl-maker-showcase.jpg" alt="ACL Maker Showcase booth" /></div><div class="event-copy"><time>March 2025</time><h3>ACL Maker Showcase</h3><p>At the Academies of Loudoun Maker Showcase, we presented FIRST, competitive robotics, and our team’s engineering process to educators, parents, and students. The booth included robot demos, hardware and software explanations, outreach displays, and conversations about how students can get involved in robotics.</p></div></article>
+          <article class="event reveal tilt"><div class="event-media"><img src="assets/outreach/online-robotics-bootcamp.jpg" alt="Online robotics bootcamp" /></div><div class="event-copy"><time>February 2025</time><h3>Online Robotics Bootcamp</h3><p>In partnership with Curie Learning, we conducted online sessions covering the basics of FIRST, FTC, and robotics. Topics included hardware parts, 3D modeling, programming concepts, a Python crash course, marketing, logo design, and a live robot demo.</p></div></article>
+          <article class="event reveal tilt"><div class="event-media"><img src="assets/outreach/library-events.jpg" alt="Library robotics event" /></div><div class="event-copy"><time>Ongoing</time><h3>Library Events</h3><p>Open events with stations for 3D printing, Java programming, robot driving, AI experiments, and hands-on hardware challenges &mdash; designed so students can rotate between activities and experience robotics without needing a formal team background.</p></div></article>
         </div>
       </section>
 
@@ -941,17 +1028,22 @@
           <p>Spark Gears also supports younger or developing FTC teams through mentorship, outreach guidance, and technical advice.</p>
         </div>
         <div class="mentor-grid">
-          <details class="mentor-card reveal">
+          <details class="mentor-card reveal tilt">
             <summary>
               <p class="eyebrow">Mentor Team 01</p>
               <h3>Dauntless Dragons</h3>
               <p>We are an FTC team from the northern VA area engineering the future of robotics.</p>
             </summary>
             <div class="mentor-detail">
-              <p>Dauntless Dragons represents the kind of student-led robotics group Spark Gears aims to support: teams learning design, programming, outreach, and competition readiness while building confidence as engineers and community leaders.</p>
+              <div>
+                <p>Dauntless Dragons represents the kind of student-led robotics group Spark Gears aims to support: teams learning design, programming, outreach, and competition readiness while building confidence as engineers and community leaders.</p>
+              </div>
+              <div class="mentor-image">
+                <img src="assets/mentors/dauntless-dragons.png" alt="Dauntless Dragons FTC team logo" />
+              </div>
             </div>
           </details>
-          <details class="mentor-card reveal">
+          <details class="mentor-card reveal tilt">
             <summary>
               <p class="eyebrow">Mentor Team 02</p>
               <h3>Autonomous Angels</h3>
@@ -963,6 +1055,21 @@
               </div>
               <div class="mentor-image">
                 <img src="assets/mentors/autonomous-angels.png" alt="Autonomous Angels meeting graphic cropped to show the team logos and video call" />
+              </div>
+            </div>
+          </details>
+          <details class="mentor-card reveal tilt">
+            <summary>
+              <p class="eyebrow">Mentor Team 03</p>
+              <h3>Turbo Terminators</h3>
+              <p>FTC Team 30348 from Ashburn, Virginia, mentored since their rookie year.</p>
+            </summary>
+            <div class="mentor-detail">
+              <div>
+                <p>We are incredibly proud to mentor FTC Team 30348, the Turbo Terminators, from Ashburn, Virginia! Since their rookie year, our team has had the privilege of guiding these talented students through the complexities of mechanical design, programming, and strategy. Our mentorship came full circle this past season as the Turbo Terminators advanced all the way to the FIRST Chesapeake State Championship. Watching them design, iterate, and compete at the highest level in the region is exactly why we love giving back to the FIRST community.</p>
+              </div>
+              <div class="mentor-image">
+                <img src="assets/mentors/turbo-terminators.png" alt="Turbo Terminators FTC Team 30348 logo" />
               </div>
             </div>
           </details>
@@ -978,19 +1085,61 @@
           <p>Our team brings together students focused on software, hardware, outreach, curriculum development, mentoring, and community programs.</p>
         </div>
         <div class="members">
-          <article class="member-card reveal"><img src="assets/team/aryan-mathur.jpg" alt="Aryan Mathur" /><div><h3>Aryan Mathur</h3><p>Co-Captain, Software & Outreach</p><span>2023-present</span></div></article>
-          <article class="member-card reveal"><img src="assets/team/harshal-mahadik.jpg" alt="Harshal Mahadik" /><div><h3>Harshal Mahadik</h3><p>Co-Captain, Hardware</p><span>2023-present</span></div></article>
-          <article class="member-card reveal"><img src="assets/team/aditya-kothari.jpg" alt="Aditya Kothari" /><div><h3>Aditya Kothari</h3><p>Team Advisor, Outreach & Hardware, Former Captain</p><span>2023-present</span></div></article>
-          <article class="member-card reveal"><img src="assets/team/srinandasai-ari.jpg" alt="Srinandasai Ari" /><div><h3>Srinandasai Ari</h3><p>Software Lead</p><span>2023-present</span></div></article>
-          <article class="member-card reveal"><img src="assets/team/arav-daryani.jpg" alt="Arav Daryani" /><div><h3>Arav Daryani</h3><p>Hardware Lead</p><span>2025-present</span></div></article>
-          <article class="member-card reveal"><img src="assets/team/nihal-bojji.jpg" alt="Nihal Bojji" /><div><h3>Nihal Bojji</h3><p>Software & Scouting</p><span>2025-present</span></div></article>
-          <article class="member-card reveal"><img src="assets/team/kanav-mahajan.jpg" alt="Kanav Mahajan" /><div><h3>Kanav Mahajan</h3><p>Software</p><span>2023-present</span></div></article>
-          <article class="member-card reveal"><img src="assets/team/mayukh-aduru.jpg" alt="Mayukh Aduru" /><div><h3>Mayukh Aduru</h3><p>Hardware</p><span>2026-present</span></div></article>
-          <article class="member-card reveal"><img src="assets/team/aarush-gutha.jpg" alt="Aarush Gutha" /><div><h3>Aarush Gutha</h3><p>Software</p><span>2026-present</span></div></article>
-          <article class="member-card reveal"><img src="assets/team/krish-parekh.jpg" alt="Krish Parekh" /><div><h3>Krish Parekh</h3><p>Outreach & Software</p><span>2026-present</span></div></article>
-          <article class="member-card reveal"><img src="assets/team/mahika-jain.jpg" alt="Mahika Jain" /><div><h3>Mahika Jain</h3><p>Outreach</p><span>2026-present</span></div></article>
-          <article class="member-card reveal"><img src="assets/team/medha-madhavaram.jpg" alt="Medha Madhavaram" /><div><h3>Medha Madhavaram</h3><p>Outreach</p><span>2026-present</span></div></article>
-          <article class="member-card reveal"><img src="assets/team/tarak-kurra.jpg" alt="Tarak Kurra" /><div><h3>Tarak Kurra</h3><p>Outreach</p><span>2026-present</span></div></article>
+          <article class="member-card reveal tilt"><img src="assets/team/aryan-mathur.jpg" alt="Aryan Mathur" /><div><h3>Aryan Mathur</h3><p>Co-Captain, Software & Outreach</p><span>2023-present</span></div></article>
+          <article class="member-card reveal tilt"><img src="assets/team/harshal-mahadik.jpg" alt="Harshal Mahadik" /><div><h3>Harshal Mahadik</h3><p>Co-Captain, Hardware</p><span>2023-present</span></div></article>
+          <article class="member-card reveal tilt"><img src="assets/team/aditya-kothari.jpg" alt="Aditya Kothari" /><div><h3>Aditya Kothari</h3><p>Team Advisor, Outreach & Hardware, Former Captain</p><span>2023-present</span></div></article>
+          <article class="member-card reveal tilt"><img src="assets/team/srinandasai-ari.jpg" alt="Srinandasai Ari" /><div><h3>Srinandasai Ari</h3><p>Software Lead</p><span>2023-present</span></div></article>
+          <article class="member-card reveal tilt"><img src="assets/team/arav-daryani.jpg" alt="Arav Daryani" /><div><h3>Arav Daryani</h3><p>Hardware Lead</p><span>2025-present</span></div></article>
+          <article class="member-card reveal tilt"><img src="assets/team/nihal-bojji.jpg" alt="Nihal Bojji" /><div><h3>Nihal Bojji</h3><p>Software & Scouting</p><span>2025-present</span></div></article>
+          <article class="member-card reveal tilt"><img src="assets/team/kanav-mahajan.jpg" alt="Kanav Mahajan" /><div><h3>Kanav Mahajan</h3><p>Software</p><span>2023-present</span></div></article>
+          <article class="member-card reveal tilt"><img src="assets/team/mayukh-aduru.jpg" alt="Mayukh Aduru" /><div><h3>Mayukh Aduru</h3><p>Hardware</p><span>2026-present</span></div></article>
+          <article class="member-card reveal tilt"><img src="assets/team/aarush-gutha.jpg" alt="Aarush Gutha" /><div><h3>Aarush Gutha</h3><p>Software</p><span>2026-present</span></div></article>
+          <article class="member-card reveal tilt"><img src="assets/team/krish-parekh.jpg" alt="Krish Parekh" /><div><h3>Krish Parekh</h3><p>Outreach & Software</p><span>2026-present</span></div></article>
+          <article class="member-card reveal tilt"><img src="assets/team/mahika-jain.jpg" alt="Mahika Jain" /><div><h3>Mahika Jain</h3><p>Outreach</p><span>2026-present</span></div></article>
+          <article class="member-card reveal tilt"><img src="assets/team/medha-madhavaram.jpg" alt="Medha Madhavaram" /><div><h3>Medha Madhavaram</h3><p>Outreach</p><span>2026-present</span></div></article>
+          <article class="member-card reveal tilt"><img src="assets/team/tarak-kurra.jpg" alt="Tarak Kurra" /><div><h3>Tarak Kurra</h3><p>Outreach</p><span>2026-present</span></div></article>
+        </div>
+      </section>
+
+      <section id="host" class="section">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Host a Program</p>
+            <h2>Bring a course to your community.</h2>
+          </div>
+          <p>If you're looking to host one of our programs, our model is simple: we provide all plans, training, and necessary funding for the course. You provide a location, your time, and students. We're also able to provide volunteer verification for teachers, and all help from Spark Gears is free of charge.</p>
+        </div>
+        <div class="mentor-grid">
+          <details class="mentor-card reveal tilt">
+            <summary>
+              <p class="eyebrow">Ideal for FTC Teams</p>
+              <h3>FTC Introductory Camp</h3>
+              <p>A weeklong summer camp where rising 6th-9th graders build and program an FTC-scale robot as part of a mini competitive team.</p>
+            </summary>
+            <div class="mentor-detail single">
+              <div>
+                <p>This weeklong camp immerses rising 6th-9th graders in the real-world process of building an FTC-scale robot while working as part of one of two mini competitive teams. Guided step-by-step by experienced competitive robotics mentors, students get direct experience with electronics, Java programming, robot design, and hands-on troubleshooting as they prepare to take on the official FIRST Tech Challenge (FTC) DECODE Challenge. Over the week, teams design, build, and market their own robots, learn how to brand and promote a team, and solve real problems faced by actual FTC teams. The camp concludes with a game-day test and a showcase. No previous coding or building experience is needed &mdash; everyone receives detailed mentorship. It's great for FTC team outreach: volunteer hours can be verified by Spark Gears and the team can be listed as a partner with the organization, boosting competition judging.</p>
+                <p><strong>We provide:</strong> all parts needed for every student, including Arduino boards, wires, and sensors (around $200 total), complete lesson plans for each day, and training for teachers &mdash; no prior Arduino experience needed.</p>
+                <p><strong>Hosts provide:</strong> space, students, and marketing for the event, plus time to learn from the training and teach students.</p>
+                <p><strong>Students provide:</strong> a personal or school-issued laptop.</p>
+                <p><strong>Schedule:</strong> Day 1 &mdash; introductions, problem statement, and team branding. Day 2 &mdash; building/design mini-lesson, start building the robot. Day 3 &mdash; continue building. Day 4 &mdash; programming mini-lesson, program the robot. Day 5 &mdash; finishing touches and a final showcase test.</p>
+                <p><strong>Logistics &amp; safety:</strong> target grades 5&ndash;9, ideal group size ~5&ndash;8 students (8+ if two robots are available), ~3 hours per day, and safety glasses required for all mentors and students.</p>
+              </div>
+            </div>
+          </details>
+          <details class="mentor-card reveal tilt">
+            <summary>
+              <p class="eyebrow">Beginner Friendly</p>
+              <h3>3-Session Arduino Workshops</h3>
+              <p>A hands-on, standalone mini-course for grades 6&ndash;8 that builds core engineering habits through lights, sounds, and motion.</p>
+            </summary>
+            <div class="mentor-detail single">
+              <div>
+                <p>This 3-session Arduino mini-course is designed for grades 6&ndash;8 and is hands-on and beginner-friendly. Students see immediate results &mdash; lights, sounds, and motion &mdash; while building core engineering habits like testing, iterating, and debugging. Each session is standalone, so students can attend one, two, or all three and still complete a fun project. By the end, students understand the big Arduino idea: hardware + code = interactive systems, and they've practiced a real engineering workflow: wire, upload, test, debug, improve.</p>
+                <p><strong>Coming soon:</strong> Intermediate Arduino Robotics, Introduction to Python, Introduction to Java, and Advanced Arduino Robotics.</p>
+              </div>
+            </div>
+          </details>
         </div>
       </section>
 
@@ -999,7 +1148,7 @@
           <div>
             <p class="eyebrow">Join the Initiative</p>
             <h2>Bring Spark Gears to your community.</h2>
-            <p>Anyone can join the Spark Gears Initiative: robotics teams, STEM clubs, schools, and community groups across the United States. We provide full course materials free of charge, including lesson plans, slides, activities, and guides. Local organizers plan logistics, market to students, and teach the course in their own community.</p>
+            <p>Anyone can join the Spark Gears Initiative: robotics teams, STEM clubs, schools, and community groups across the United States. We have multiple STEM and robotics courses available depending on what you're open to teach. We provide full course materials free of charge &mdash; lesson plans, slides, activities, and guides &mdash; all you need to do is plan the logistics, market to students, and teach the course in your community.</p>
           </div>
           <a class="button" href="mailto:sparkgearsinitiative@gmail.com">Email Spark Gears</a>
         </div>
@@ -1019,13 +1168,14 @@
 
     <footer class="footer">
       <div><strong>Spark Gears Initiative</strong><br />Free robotics courseware and STEM outreach.</div>
-      <div><a href="mailto:sparkgearsinitiative@gmail.com">sparkgearsinitiative@gmail.com</a><br />571-429-9220</div>
+      <div><a href="mailto:sparkgearsinitiative@gmail.com">sparkgearsinitiative@gmail.com</a><br />(571) 749-9220</div>
     </footer>
   </div>
 
   <script>
     const canvas = document.getElementById("starfield");
     const ctx = canvas.getContext("2d");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const pointer = { x: -9999, y: -9999, active: false };
     let stars = [];
     let width = 0;
@@ -1129,6 +1279,45 @@
       pointer.y = -9999;
     });
 
+    resize();
+    draw();
+
+    // Scroll progress bar
+    const progressBar = document.getElementById("scroll-progress");
+    function updateProgress() {
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const scrollHeight = doc.scrollHeight - doc.clientHeight;
+      const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      progressBar.style.width = pct + "%";
+    }
+
+    // Hero parallax
+    const heroPhoto = document.querySelector(".hero-team-photo img");
+    function updateParallax() {
+      if (!heroPhoto || reduceMotion) return;
+      const scrollTop = window.scrollY || 0;
+      const shift = Math.min(scrollTop * 0.28, 140);
+      const scale = 1 + Math.min(scrollTop / 4000, 0.08);
+      heroPhoto.style.transform = `translateY(${shift}px) scale(${scale})`;
+    }
+
+    let scrollTicking = false;
+    function onScroll() {
+      if (!scrollTicking) {
+        requestAnimationFrame(() => {
+          updateProgress();
+          updateParallax();
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    updateProgress();
+    updateParallax();
+
+    // Staggered scroll reveals
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -1138,10 +1327,31 @@
       });
     }, { threshold: 0.12 });
 
-    document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+    document.querySelectorAll(".reveal").forEach((el) => {
+      const siblings = Array.from(el.parentElement.children).filter((c) => c.classList.contains("reveal"));
+      const idx = siblings.indexOf(el);
+      el.style.transitionDelay = `${Math.min(idx, 8) * 70}ms`;
+      revealObserver.observe(el);
+    });
 
-    resize();
-    draw();
+    if (!reduceMotion) {
+      const tiltEls = document.querySelectorAll(".tilt");
+      tiltEls.forEach((el) => {
+        el.addEventListener("mousemove", (event) => {
+          const rect = el.getBoundingClientRect();
+          const px = (event.clientX - rect.left) / rect.width - 0.5;
+          const py = (event.clientY - rect.top) / rect.height - 0.5;
+          const rotY = px * 7;
+          const rotX = -py * 7;
+          el.classList.add("tilting");
+          el.style.transform = `perspective(700px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
+        });
+        el.addEventListener("mouseleave", () => {
+          el.classList.remove("tilting");
+          el.style.transform = "";
+        });
+      });
+    }
   </script>
 </body>
 </html>
