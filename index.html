@@ -911,7 +911,7 @@
     @media (max-width: 620px) {
       .section {
         width: min(calc(100% - 22px), var(--max));
-        padding: 62px 0;
+        padding: 56px 0;
       }
 
       .hero {
@@ -924,18 +924,34 @@
       }
 
       h1 {
-        font-size: clamp(2.55rem, 15vw, 4.2rem);
+        font-size: clamp(1.95rem, 10.6vw, 3.1rem);
+        line-height: 0.9;
       }
 
       .hero-title-overlay {
-        bottom: clamp(300px, 42vh, 380px);
+        left: 18px;
+        right: 18px;
+        bottom: clamp(330px, 46vh, 430px);
+        gap: 10px;
+        max-width: none;
+      }
+
+      .hero-title-overlay h1 {
+        max-width: 10ch;
+      }
+
+      .hero-text {
+        max-width: 30ch;
+        font-size: 0.94rem;
+        line-height: 1.5;
       }
 
       .deck-copy {
         left: 18px;
         right: 18px;
-        bottom: 28px;
+        bottom: 18px;
         padding: 0;
+        max-width: none;
       }
 
       .members {
@@ -961,7 +977,12 @@
       }
 
       .command-row {
+        margin-top: 12px;
         align-items: stretch;
+      }
+
+      .hero-lower {
+        display: block;
       }
 
       .button,
