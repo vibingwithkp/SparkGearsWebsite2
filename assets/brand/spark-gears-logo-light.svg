@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Spark Gears Initiative logo">
+  <defs>
+    <path id="bolt" d="M150 8 L64 114 L103 109 L48 194 L140 80 L110 85 Z"/>
+    <mask id="cut">
+      <rect width="200" height="200" fill="#fff"/>
+      <circle cx="100" cy="100" r="36" fill="#000"/>
+      <use href="#bolt" fill="#000" stroke="#000" stroke-width="10" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+  <g fill="#f4f0e6" mask="url(#cut)">
+    <circle cx="100" cy="100" r="64"/>
+    <g id="teeth">
+      <rect x="84" y="14" width="32" height="34" rx="4"/>
+      <rect x="84" y="14" width="32" height="34" rx="4" transform="rotate(45 100 100)"/>
+      <rect x="84" y="14" width="32" height="34" rx="4" transform="rotate(90 100 100)"/>
+      <rect x="84" y="14" width="32" height="34" rx="4" transform="rotate(135 100 100)"/>
+      <rect x="84" y="14" width="32" height="34" rx="4" transform="rotate(180 100 100)"/>
+      <rect x="84" y="14" width="32" height="34" rx="4" transform="rotate(225 100 100)"/>
+      <rect x="84" y="14" width="32" height="34" rx="4" transform="rotate(270 100 100)"/>
+      <rect x="84" y="14" width="32" height="34" rx="4" transform="rotate(315 100 100)"/>
+    </g>
+  </g>
+  <use href="#bolt" fill="#e3a93b"/>
+</svg>
