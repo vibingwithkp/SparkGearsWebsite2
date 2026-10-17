@@ -4,8 +4,9 @@ This is a self-contained static website for rapid GitHub Pages deployment.
 
 ## Files
 
-- `index.html` contains the full HTML, CSS, and vanilla JavaScript experience.
-- `assets/` contains local brand, team, and outreach images.
+- `index.html`, `programs.html`, `about.html`, `get-involved.html` are the four pages.
+- `styles.css` holds all shared styles; `site.js` holds the interactions (breadboard hero, menu, program rail, galleries, lightbox, filters, tabs).
+- `assets/` contains local brand, team, and outreach images. `assets/web/` has resized copies of the big photos that the pages actually load; resize new photos to ~1400px wide before adding them.
 - `SparkGearsWebsite-package.zip` is the downloadable deployment package.
 
 ## Preview Locally
