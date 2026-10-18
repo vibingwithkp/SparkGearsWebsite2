@@ -388,6 +388,14 @@ p { margin: 0; }
 
 .hero-copy { display: grid; gap: 22px; justify-items: start; }
 
+/* hero without a photo: copy spans the board */
+.hero-grid.solo { grid-template-columns: 1fr; }
+.hero-grid.solo h1 { max-width: 15ch; }
+@media (max-width: 520px) {
+  .hero-grid.solo h1 { font-size: clamp(2.6rem, 12.5vw, 3.4rem); }
+  .hero-grid.solo h1 .row { display: inline; }
+}
+
 .hero h1 .row { display: block; }
 
 .hero .lede {
