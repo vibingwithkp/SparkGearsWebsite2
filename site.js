@@ -268,4 +268,175 @@
     }, { rootMargin: "-45% 0px -50% 0px" });
     sections.forEach((s) => s && io.observe(s));
   }
+
+  /* ---------- PDF preview ---------- */
+  const viewer = document.querySelector(".pdf-viewer");
+  if (viewer) {
+    const PDFJS = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/";
+    const pages = viewer.querySelector(".pdf-pages");
+    const title = viewer.querySelector("#pdf-title");
+    const meta = viewer.querySelector(".pdf-meta");
+    const download = viewer.querySelector(".pdf-download");
+    const codeToggle = viewer.querySelector(".pdf-code-toggle");
+    const codePanel = viewer.querySelector(".pdf-code");
+    const codeList = viewer.querySelector(".pdf-code-list");
+    const wide = window.matchMedia("(min-width: 861px)");
+    let lib = null, snippets = null, job = 0, pendingPage = 0, settlePage = 0;
+
+    const loadSnippets = () => snippets || (snippets = fetch("downloads/code-snippets.json")
+      .then((r) => (r.ok ? r.json() : {}))
+      .catch(() => ({})));
+
+    const setCodeOpen = (open) => {
+      codePanel.hidden = !open;
+      codeToggle.setAttribute("aria-expanded", String(open));
+      viewer.classList.toggle("code-open", open);
+    };
+
+    const copyText = async (text) => {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        // older browsers, or clipboard blocked: copy through a hidden textarea
+        const ta = Object.assign(document.createElement("textarea"), { value: text });
+        ta.setAttribute("readonly", "");
+        ta.style.cssText = "position:fixed;opacity:0";
+        viewer.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+      }
+    };
+
+    const goToPage = (n, instant = false) => {
+      const canvas = pages.querySelectorAll("canvas")[n - 1];
+      if (!canvas) { pendingPage = n; return; }
+      pendingPage = 0;
+      pages.scrollTo({ top: canvas.offsetTop - 16, behavior: instant || reduceMotion ? "auto" : "smooth" });
+      if (!wide.matches) setCodeOpen(false);
+    };
+
+    const COPY_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>';
+    const DONE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+    const showSnippets = (items) => {
+      codeList.replaceChildren(...items.map((item) => {
+        const li = document.createElement("li");
+        li.className = "pdf-snippet";
+        const top = document.createElement("div");
+        top.className = "pdf-snippet-top";
+        top.append(Object.assign(document.createElement("strong"), { textContent: item.title }));
+        if (item.page) {
+          const jump = Object.assign(document.createElement("button"), { type: "button", textContent: `Go to page ${item.page}` });
+          jump.addEventListener("click", () => goToPage(item.page));
+          top.append(jump);
+        }
+        const pre = Object.assign(document.createElement("pre"), { textContent: item.code });
+        pre.setAttribute("aria-hidden", "true");
+        const copy = document.createElement("button");
+        copy.type = "button";
+        copy.className = "pdf-copy";
+        copy.innerHTML = `${COPY_ICON}<span>Copy code</span>`;
+        copy.setAttribute("aria-label", `Copy code: ${item.title}`);
+        let timer;
+        copy.addEventListener("click", async () => {
+          await copyText(item.code);
+          copy.classList.add("copied");
+          copy.innerHTML = `${DONE_ICON}<span>Copied</span>`;
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            copy.classList.remove("copied");
+            copy.innerHTML = `${COPY_ICON}<span>Copy code</span>`;
+          }, 1800);
+        });
+        li.append(top, pre, copy);
+        return li;
+      }));
+      codeToggle.querySelector(".btn-label").textContent = `Code (${items.length})`;
+    };
+
+    const loadLib = () => lib || (lib = new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = PDFJS + "pdf.min.js";
+      s.onload = () => {
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + "pdf.worker.min.js";
+        resolve(window.pdfjsLib);
+      };
+      s.onerror = () => { lib = null; reject(new Error("pdf.js failed to load")); };
+      document.head.appendChild(s);
+    }));
+
+    const status = (text) => {
+      pages.replaceChildren(Object.assign(document.createElement("p"), { className: "pdf-status", textContent: text }));
+    };
+
+    const render = async (url, id) => {
+      const pdfjs = await loadLib();
+      const doc = await pdfjs.getDocument(url).promise;
+      if (id !== job) return;
+      meta.textContent = `PDF · ${doc.numPages} ${doc.numPages === 1 ? "page" : "pages"}`;
+      pages.replaceChildren();
+      const width = Math.min(pages.clientWidth - 24, 860);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      for (let n = 1; n <= doc.numPages; n++) {
+        const page = await doc.getPage(n);
+        if (id !== job) return;
+        const base = page.getViewport({ scale: 1 });
+        const vp = page.getViewport({ scale: (width / base.width) * dpr });
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(vp.width);
+        canvas.height = Math.round(vp.height);
+        canvas.setAttribute("role", "img");
+        canvas.setAttribute("aria-label", `Page ${n} of ${doc.numPages}`);
+        pages.appendChild(canvas);
+        await page.render({ canvasContext: canvas.getContext("2d"), viewport: vp }).promise;
+        if (pendingPage === n) { goToPage(n, true); settlePage = n; }
+      }
+      // later pages can nudge the layout while rendering, so land the jump again at the end
+      if (settlePage && id === job) { goToPage(settlePage, true); settlePage = 0; }
+    };
+
+    const open = (link) => {
+      const url = link.getAttribute("href");
+      const name = link.dataset.pdfTitle || link.closest(".card")?.querySelector("h3")?.textContent || link.textContent.trim();
+      const id = ++job;
+      title.textContent = name;
+      meta.textContent = "PDF";
+      download.href = url;
+      download.setAttribute("download", url.split("/").pop());
+      status("Loading preview…");
+      pendingPage = settlePage = 0;
+      codeToggle.hidden = true;
+      setCodeOpen(false);
+      viewer.showModal();
+      pages.scrollTop = 0;
+      loadSnippets().then((all) => {
+        const items = all[url.split("/").pop()];
+        if (id !== job || !items?.length) return;
+        showSnippets(items);
+        codeToggle.hidden = false;
+        setCodeOpen(wide.matches);
+      });
+      render(url, id).catch(() => {
+        if (id !== job) return;
+        // no pdf.js (offline or blocked): fall back to the browser's own viewer
+        const frame = document.createElement("iframe");
+        frame.src = url;
+        frame.title = name;
+        pages.replaceChildren(frame);
+      });
+    };
+
+    document.querySelectorAll("a[data-pdf]").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        open(link);
+      });
+    });
+    viewer.querySelector("[data-pdf-close]").addEventListener("click", () => viewer.close());
+    codeToggle.addEventListener("click", () => setCodeOpen(codePanel.hidden));
+    viewer.addEventListener("click", (e) => { if (e.target === viewer) viewer.close(); });
+    viewer.addEventListener("close", () => { job++; pages.replaceChildren(); });
+  }
 })();
