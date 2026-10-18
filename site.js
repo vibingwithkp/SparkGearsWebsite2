@@ -268,11 +268,6 @@
     }, { rootMargin: "-45% 0px -50% 0px" });
     sections.forEach((s) => s && io.observe(s));
   }
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
 
   /* ---------- PDF preview ---------- */
   const viewer = document.querySelector(".pdf-viewer");
@@ -444,8 +439,4 @@
     viewer.addEventListener("click", (e) => { if (e.target === viewer) viewer.close(); });
     viewer.addEventListener("close", () => { job++; pages.replaceChildren(); });
   }
-<<<<<<< Updated upstream
-=======
->>>>>>> 3b6b7ae1383f3d6551069a74070a55c515411292
->>>>>>> Stashed changes
 })();
