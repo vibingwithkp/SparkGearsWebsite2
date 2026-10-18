@@ -268,4 +268,85 @@
     }, { rootMargin: "-45% 0px -50% 0px" });
     sections.forEach((s) => s && io.observe(s));
   }
+
+  /* ---------- PDF preview ---------- */
+  const viewer = document.querySelector(".pdf-viewer");
+  if (viewer) {
+    const PDFJS = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/";
+    const pages = viewer.querySelector(".pdf-pages");
+    const title = viewer.querySelector("#pdf-title");
+    const meta = viewer.querySelector(".pdf-meta");
+    const download = viewer.querySelector(".pdf-download");
+    let lib = null, job = 0;
+
+    const loadLib = () => lib || (lib = new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = PDFJS + "pdf.min.js";
+      s.onload = () => {
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + "pdf.worker.min.js";
+        resolve(window.pdfjsLib);
+      };
+      s.onerror = () => { lib = null; reject(new Error("pdf.js failed to load")); };
+      document.head.appendChild(s);
+    }));
+
+    const status = (text) => {
+      pages.replaceChildren(Object.assign(document.createElement("p"), { className: "pdf-status", textContent: text }));
+    };
+
+    const render = async (url, id) => {
+      const pdfjs = await loadLib();
+      const doc = await pdfjs.getDocument(url).promise;
+      if (id !== job) return;
+      meta.textContent = `PDF · ${doc.numPages} ${doc.numPages === 1 ? "page" : "pages"}`;
+      pages.replaceChildren();
+      const width = Math.min(pages.clientWidth - 24, 860);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      for (let n = 1; n <= doc.numPages; n++) {
+        const page = await doc.getPage(n);
+        if (id !== job) return;
+        const base = page.getViewport({ scale: 1 });
+        const vp = page.getViewport({ scale: (width / base.width) * dpr });
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(vp.width);
+        canvas.height = Math.round(vp.height);
+        canvas.setAttribute("role", "img");
+        canvas.setAttribute("aria-label", `Page ${n} of ${doc.numPages}`);
+        pages.appendChild(canvas);
+        await page.render({ canvasContext: canvas.getContext("2d"), viewport: vp }).promise;
+      }
+    };
+
+    const open = (link) => {
+      const url = link.getAttribute("href");
+      const name = link.closest(".card")?.querySelector("h3")?.textContent || link.textContent.trim();
+      const id = ++job;
+      title.textContent = name;
+      meta.textContent = "PDF";
+      download.href = url;
+      download.setAttribute("download", url.split("/").pop());
+      status("Loading preview…");
+      viewer.showModal();
+      pages.scrollTop = 0;
+      render(url, id).catch(() => {
+        if (id !== job) return;
+        // no pdf.js (offline or blocked): fall back to the browser's own viewer
+        const frame = document.createElement("iframe");
+        frame.src = url;
+        frame.title = name;
+        pages.replaceChildren(frame);
+      });
+    };
+
+    document.querySelectorAll("a[data-pdf]").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        open(link);
+      });
+    });
+    viewer.querySelector("[data-pdf-close]").addEventListener("click", () => viewer.close());
+    viewer.addEventListener("click", (e) => { if (e.target === viewer) viewer.close(); });
+    viewer.addEventListener("close", () => { job++; pages.replaceChildren(); });
+  }
 })();
