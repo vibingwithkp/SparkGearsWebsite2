@@ -136,7 +136,7 @@
               <h3>Intro robotics camp</h3>
               <p>Students form mini teams, then build, program, and present a robot together over several days.</p>
               <ul class="chips"><li class="chip">Multi-day</li><li class="chip">Mini teams</li><li class="chip">Final presentation</li></ul>
-              <a class="text-link" href="downloads/spark-gears-ftc-intro-camp.pdf" data-pdf>See the camp plan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              <a class="text-link" href="downloads/spark-gears-ftc-intro-camp.pdf" data-pdf data-pdf-title="FTC intro robotics camp">See the camp plan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             </div>
           </div>
           <div class="picker-panel" role="tabpanel" id="panel-arduino" aria-labelledby="tab-arduino" hidden>
@@ -146,7 +146,7 @@
               <h3>Arduino workshop</h3>
               <p>A beginner-friendly session on lights, sensors, motion, and combining hardware with code.</p>
               <ul class="chips"><li class="chip">2–3 hours</li><li class="chip">Beginner friendly</li><li class="chip">No experience needed</li></ul>
-              <a class="text-link" href="downloads/spark-gears-arduino-workshop-series.pdf" data-pdf>See the lesson plans <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              <a class="text-link" href="downloads/spark-gears-arduino-workshop-series.pdf" data-pdf data-pdf-title="Arduino workshop series">See the lesson plans <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             </div>
           </div>
         </div>
@@ -278,11 +278,21 @@
           <span class="pdf-meta"></span>
         </div>
         <div class="pdf-actions">
+          <button class="btn btn-ghost pdf-code-toggle" type="button" aria-expanded="false" aria-controls="pdf-code" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg><span class="btn-label">Code</span></button>
           <a class="btn btn-primary pdf-download" href="#" download><span class="btn-label">Download</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></a>
           <button class="icon-btn" type="button" data-pdf-close aria-label="Close preview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
         </div>
       </div>
-      <div class="pdf-pages" tabindex="0"></div>
+      <div class="pdf-body">
+        <div class="pdf-pages" tabindex="0"></div>
+        <aside class="pdf-code" id="pdf-code" aria-label="Code from this PDF" hidden>
+          <div class="pdf-code-head">
+            <p>Code from this PDF</p>
+            <span>Copy it straight into your editor. Spacing and indents stay exact.</span>
+          </div>
+          <ol class="pdf-code-list"></ol>
+        </aside>
+      </div>
     </div>
   </dialog>
 

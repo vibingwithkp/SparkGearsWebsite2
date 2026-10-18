@@ -8,6 +8,7 @@ Needs reportlab plus static instances of the site fonts (Big Shoulders Display
 Font files expected: BS-800.ttf, BS-900.ttf, IS-400.ttf, IS-500.ttf, IS-600.ttf, IS-700.ttf
 """
 
+import json
 import os
 import sys
 
@@ -208,7 +209,27 @@ def glance(pairs, cols=4):
     return t
 
 
-def code(src, caption=None):
+EXPORTED = {}  # pdf filename -> its snippets
+SNIPPETS = []  # code blocks in the PDF being built, exported for the site's copy buttons
+
+
+class PageMark(Flowable):
+    """Zero-size flowable that records which page a code block lands on."""
+
+    def __init__(self, entry):
+        super().__init__()
+        self.entry = entry
+
+    def wrap(self, aw, ah):
+        return 0, 0
+
+    def draw(self):
+        self.entry["page"] = self.canv.getPageNumber()
+
+
+def code(src, caption=None, label=None):
+    entry = {"title": label or caption, "code": src.strip("\n") + "\n"}
+    SNIPPETS.append(entry)
     pre = Preformatted(src.strip("\n"), S["code"])
     rows = [[pre]]
     if caption:
@@ -221,7 +242,7 @@ def code(src, caption=None):
         ("TOPPADDING", (0, 0), (-1, -1), 7),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
     ]))
-    return KeepTogether([t, Spacer(1, 9)])
+    return KeepTogether([PageMark(entry), t, Spacer(1, 9)])
 
 
 def note(title, body_items):
@@ -347,6 +368,7 @@ class Doc(BaseDocTemplate):
 
 
 def build(filename, title, kicker, subtitle, short, story):
+    global SNIPPETS
     # headings never sit alone at the bottom of a page: bind each to the block after it
     def leads(f):
         return isinstance(f, Heading) or (isinstance(f, Paragraph) and f.style.name in ("h3", "intro"))
@@ -369,6 +391,9 @@ def build(filename, title, kicker, subtitle, short, story):
     story = fixed
     path = os.path.join(OUT, filename)
     Doc(path, title, kicker, subtitle, short).build(story)
+    if SNIPPETS:
+        EXPORTED[filename] = SNIPPETS
+    SNIPPETS = []
     print("wrote", os.path.relpath(path, ROOT))
 
 
@@ -520,7 +545,7 @@ void loop() {
   delay(4000);
   digitalWrite(RED, LOW);
 }
-""", "Starter code"),
+""", "Starter code", "Session 1: Traffic light"),
         note("If it doesn't work", [
             "<b>LED stays dark:</b> it's probably in backwards. Flip it so the long leg faces the resistor.",
             "<b>Upload fails:</b> wrong port selected, or a charge-only USB cable. Try another cable first.",
@@ -606,7 +631,7 @@ void loop() {
   }
   delay(2000);
 }
-""", "Starter code"),
+""", "Starter code", "Session 2: Reaction game"),
         note("If it doesn't work", [
             "<b>Game finishes instantly with a time of 0:</b> the button is wired across the wrong pair of legs, "
             "so it always reads pressed. Rotate it 90 degrees.",
@@ -676,7 +701,7 @@ void loop() {
     while (digitalRead(BUTTON) == LOW) { }   // wait for release
   }
 }
-""", "Starter code: button"),
+""", "Starter code: button", "Session 3: Servo creature (button)"),
         code("""
 // Knob version: turn the potentiometer, the creature follows
 #include <Servo.h>
@@ -693,7 +718,7 @@ void loop() {
   creature.write(angle);
   delay(15);
 }
-""", "Starter code: knob"),
+""", "Starter code: knob", "Session 3: Servo creature (knob)"),
         note("If it doesn't work", [
             "<b>Servo twitches or the Arduino resets:</b> the servo is pulling too much power. Make sure nothing "
             "is blocking the horn, and don't run more than one servo off a laptop USB port.",
@@ -868,7 +893,7 @@ public class CampDrive extends LinearOpMode {
         }
     }
 }
-""", "CampDrive.java"),
+""", "CampDrive.java", "CampDrive.java (TeleOp)"),
         h2("Team roles"),
         P("Each camper takes one role per day and rotates, so everyone builds, codes, and drives at least once.", "intro"),
         table([
@@ -1044,7 +1069,7 @@ void loop() {
     forward();
   }
 }
-""", "Starter capstone code"),
+""", "Starter capstone code", "Bump-and-turn maze robot"),
         P("Turn times depend on the battery, the floor, and the wheels. Have students measure a 90 degree turn on "
           "their own robot and change the 350 to match.", "small"),
         Spacer(1, 8),
@@ -1335,3 +1360,6 @@ if __name__ == "__main__":
     roadmap()
     run_of_show()
     hour_log()
+    with open(os.path.join(OUT, "code-snippets.json"), "w") as f:
+        json.dump(EXPORTED, f, indent=1)
+    print("wrote downloads/code-snippets.json")
