@@ -196,6 +196,7 @@
   /* ---------- Entry galleries ---------- */
   document.querySelectorAll(".gallery").forEach((gallery) => {
     const main = gallery.querySelector(".gallery-main");
+    if (!main) return; // photo placeholder, nothing to open
     const mainImg = main.querySelector("img");
     const thumbs = [...gallery.querySelectorAll(".thumb")];
     const items = thumbs.length
@@ -215,7 +216,7 @@
     main.addEventListener("click", () => openLightbox(items, current, title));
   });
 
-  /* ---------- Program filters ---------- */
+  /* ---------- Impact filters ---------- */
   const filters = [...document.querySelectorAll(".filter")];
   if (filters.length) {
     const entries = [...document.querySelectorAll(".entry")];
