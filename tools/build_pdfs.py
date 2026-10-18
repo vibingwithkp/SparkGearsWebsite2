@@ -6,6 +6,9 @@ Needs reportlab plus static instances of the site fonts (Big Shoulders Display
     python3 tools/build_pdfs.py path/to/fonts
 
 Font files expected: BS-900.ttf, IS-400.ttf, IS-600.ttf, IS-700.ttf
+Each file needs its own PostScript name (InstrumentSans-Bold and so on). Files cut
+from the variable fonts with fontTools keep the default name, and then every weight
+embeds as Regular, so rename them first.
 
 Also writes downloads/code-snippets.json, which the site's PDF preview uses for
 its copy-code buttons.
@@ -67,7 +70,7 @@ def styles():
     s["small"] = ParagraphStyle("small", parent=s["body"], fontSize=8.4, leading=11.8, textColor=MUTED, spaceAfter=6)
     s["cell"] = ParagraphStyle("cell", parent=s["body"], fontSize=8.9, leading=12.4, spaceAfter=0)
     s["th"] = ParagraphStyle("th", parent=s["cell"], fontName="Body-Semi", textColor=MUTED, fontSize=8.4)
-    s["bullet"] = ParagraphStyle("bullet", parent=s["body"], leftIndent=13, bulletIndent=1, spaceAfter=4)
+    s["bullet"] = ParagraphStyle("bullet", parent=s["body"], leftIndent=13, bulletIndent=1, spaceAfter=4, bulletFontName="Body")
     s["title"] = ParagraphStyle("title", fontName="Display", fontSize=38, leading=36, textColor=INK)
     s["h1"] = ParagraphStyle("h1", fontName="Body-Bold", fontSize=21, leading=25, textColor=INK, spaceAfter=10)
     s["kicker"] = ParagraphStyle("kicker", fontName="Body-Semi", fontSize=9, leading=12, textColor=MUTED, spaceAfter=3)
@@ -636,7 +639,7 @@ void loop() {
 def ftc_camp():
     day_w = [0.95 * inch, 2.45 * inch, BODY_W - 3.4 * inch]
     st = [
-        P(f"A five-day summer camp for rising {r('6th', '9th')} graders. Campers split into one or two mini teams, "
+        P(f"The camp is for rising {r('6th', '9th')} graders. Campers split into one or two mini teams, "
           f"and each team builds and programs its own robot with help from the students on your FTC team. "
           f"Nobody needs to have built or coded anything before.", "lede"),
         P("Each day starts with a short lesson on one topic. After that, teams spend most of the block working on "
@@ -707,7 +710,7 @@ def ftc_camp():
         ], day_w),
         h2("Starter TeleOp code"),
         P("Paste this into OnBot Java. In the robot configuration, name the drive motors <b>left</b> and "
-          "<b>right</b>. Campers add their mechanism controls inside the loop."),
+          "<b>right</b>. Campers add their mechanism controls inside the loop.", "intro"),
         code("""
 package org.firstinspires.ftc.teamcode;
 
@@ -789,7 +792,7 @@ def robotics_course():
         return KeepTogether([t, Spacer(1, 12)])
 
     st = [
-        P(f"A nine-week course for grades {r(6, 9)} that meets once a week for {r(2, 2.5)} hours. Each class "
+        P(f"The class meets once a week for {r(2, 2.5)} hours. Each one "
           f"opens with a short demo and then turns into lab time. Weeks {r(1, 5)} introduce one part at a time. "
           f"In weeks {r(6, 9)} students build a robot that finds its own way through a maze, and they take the "
           f"kit home when the course ends.", "lede"),
@@ -855,7 +858,7 @@ def robotics_course():
         h2("The maze robot"),
         P("Two continuous-rotation servos drive the robot, and two limit switches on the front act as bumpers. "
           "When a bumper hits a wall, the robot backs up and turns away. It's a crude strategy, but it gets "
-          "through most beginner mazes, and there's plenty of room to improve on it."),
+          "through most beginner mazes, and there's plenty of room to improve on it.", "intro"),
         code("""
 // Bump-and-turn maze robot
 #include <Servo.h>
