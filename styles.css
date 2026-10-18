@@ -740,6 +740,8 @@ p { margin: 0; }
 
 .page-head .wrap { display: grid; gap: 20px; justify-items: start; }
 .page-head h1 { font-size: clamp(3.2rem, 8vw, 6.6rem); max-width: 12ch; }
+/* longer titles: wider measure so they stay at three lines */
+.page-head h1.wide { font-size: clamp(2.05rem, 7vw, 5.6rem); max-width: 22ch; }
 .page-head .lede { background: var(--paper); }
 
 /* ---------- Programs logbook ---------- */
