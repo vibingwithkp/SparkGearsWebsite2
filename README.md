@@ -46,4 +46,8 @@ GitHub Pages will publish the site after the first build finishes.
 
 ## Notes
 
+<<<<<<< HEAD
+The site focuses on helping FTC teams (especially rookie teams) run outreach events, and on the partnerships Spark Gears has built in the U.S. and India. Placeholders the owner still needs to fill in are marked `[TODO: ...]` with a matching `<!-- TODO -->` comment.
+=======
 The site focuses on helping FTC teams (especially rookie teams) run outreach events, and on the partnerships Spark Gears has built in the U.S., India, and Pakistan. Placeholders the owner still needs to fill in are marked `[TODO: ...]` with a matching `<!-- TODO -->` comment.
+>>>>>>> 3b6b7ae1383f3d6551069a74070a55c515411292

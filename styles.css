@@ -11,7 +11,14 @@
   --yellow: #ffc233;
   --yellow-2: #f2ad00;
   --yellow-soft: #ffe39a;
+<<<<<<< Updated upstream
   --green: #1f9d55;
+=======
+<<<<<<< HEAD
+=======
+  --green: #1f9d55;
+>>>>>>> 3b6b7ae1383f3d6551069a74070a55c515411292
+>>>>>>> Stashed changes
   --line: rgba(23, 21, 15, 0.14);
   --line-strong: rgba(23, 21, 15, 0.9);
   --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
@@ -509,7 +516,15 @@ p { margin: 0; }
   margin-bottom: clamp(28px, 4vw, 44px);
 }
 
+<<<<<<< Updated upstream
 .section-head > div:not(.rail-controls) { display: grid; gap: 14px; max-width: 760px; }
+=======
+<<<<<<< HEAD
+.section-head > div { display: grid; gap: 14px; max-width: 760px; }
+=======
+.section-head > div:not(.rail-controls) { display: grid; gap: 14px; max-width: 760px; }
+>>>>>>> 3b6b7ae1383f3d6551069a74070a55c515411292
+>>>>>>> Stashed changes
 .section-head .lede { max-width: 46ch; }
 
 .on-ink {
@@ -560,6 +575,22 @@ p { margin: 0; }
 
 .steps li:hover::before { color: var(--yellow); }
 
+<<<<<<< Updated upstream
+/* wire connecting step cards: spans the 18px gap, centered on the step number */
+=======
+<<<<<<< HEAD
+/* wire connecting step cards */
+>>>>>>> Stashed changes
+.steps li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 47px;
+  right: -20px;
+<<<<<<< Updated upstream
+  width: 18px;
+=======
+  width: 22px;
+=======
 /* wire connecting step cards: spans the 18px gap, centered on the step number */
 .steps li:not(:last-child)::after {
   content: "";
@@ -567,6 +598,8 @@ p { margin: 0; }
   top: 47px;
   right: -20px;
   width: 18px;
+>>>>>>> 3b6b7ae1383f3d6551069a74070a55c515411292
+>>>>>>> Stashed changes
   height: 2px;
   background: var(--ink);
 }
@@ -575,16 +608,40 @@ p { margin: 0; }
 .steps p { color: var(--muted); }
 
 .steps.vertical { grid-template-columns: 1fr; gap: 14px; color: var(--ink); }
+<<<<<<< Updated upstream
 .steps.vertical li { display: grid; grid-template-columns: 52px 1fr; column-gap: 18px; padding: 20px; }
 .steps.vertical li::before { grid-row: span 2; margin: 0; font-size: 3rem; text-align: center; }
 .steps.vertical li:not(:last-child)::after { top: auto; bottom: -16px; left: 45px; right: auto; width: 2px; height: 14px; }
+=======
+<<<<<<< HEAD
+.steps.vertical li { display: grid; grid-template-columns: auto 1fr; column-gap: 18px; padding: 20px; }
+.steps.vertical li::before { grid-row: span 2; margin: 0; font-size: 3rem; }
+.steps.vertical li:not(:last-child)::after { top: auto; bottom: -16px; left: 44px; right: auto; width: 2px; height: 16px; }
+=======
+.steps.vertical li { display: grid; grid-template-columns: 52px 1fr; column-gap: 18px; padding: 20px; }
+.steps.vertical li::before { grid-row: span 2; margin: 0; font-size: 3rem; text-align: center; }
+.steps.vertical li:not(:last-child)::after { top: auto; bottom: -16px; left: 45px; right: auto; width: 2px; height: 14px; }
+>>>>>>> 3b6b7ae1383f3d6551069a74070a55c515411292
+>>>>>>> Stashed changes
 .on-ink .steps li:not(:last-child)::after { background: var(--yellow); }
 
 @media (max-width: 860px) {
   .steps { grid-template-columns: 1fr; gap: 14px; }
+<<<<<<< Updated upstream
   .steps li { display: grid; grid-template-columns: 52px 1fr; column-gap: 18px; padding: 20px; }
   .steps li::before { grid-row: span 2; margin: 0; font-size: 3rem; text-align: center; }
   .steps li:not(:last-child)::after { top: auto; bottom: -16px; left: 45px; right: auto; width: 2px; height: 14px; }
+=======
+<<<<<<< HEAD
+  .steps li { display: grid; grid-template-columns: auto 1fr; column-gap: 18px; padding: 20px; }
+  .steps li::before { grid-row: span 2; margin: 0; font-size: 3rem; }
+  .steps li:not(:last-child)::after { top: auto; bottom: -16px; left: 44px; right: auto; width: 2px; height: 16px; }
+=======
+  .steps li { display: grid; grid-template-columns: 52px 1fr; column-gap: 18px; padding: 20px; }
+  .steps li::before { grid-row: span 2; margin: 0; font-size: 3rem; text-align: center; }
+  .steps li:not(:last-child)::after { top: auto; bottom: -16px; left: 45px; right: auto; width: 2px; height: 14px; }
+>>>>>>> 3b6b7ae1383f3d6551069a74070a55c515411292
+>>>>>>> Stashed changes
 }
 
 /* ---------- Program rail (home) ---------- */
@@ -1069,10 +1126,27 @@ p { margin: 0; }
   content: "";
   width: 22px;
   height: 22px;
+<<<<<<< Updated upstream
   margin-top: 3px;
   border: 2px solid var(--ink);
   border-radius: 5px;
   background: var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M4 9.4l3.2 3.1L14 5.6' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 18px 18px no-repeat;
+=======
+<<<<<<< HEAD
+  margin-top: 1px;
+  border: 2px solid var(--ink);
+  border-radius: 5px;
+  background:
+    linear-gradient(45deg, transparent 44%, var(--ink) 44%, var(--ink) 56%, transparent 56%) 3px 7px / 7px 7px no-repeat,
+    linear-gradient(-45deg, transparent 44%, var(--ink) 44%, var(--ink) 56%, transparent 56%) 7px 3px / 10px 11px no-repeat,
+    var(--card);
+=======
+  margin-top: 3px;
+  border: 2px solid var(--ink);
+  border-radius: 5px;
+  background: var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M4 9.4l3.2 3.1L14 5.6' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 18px 18px no-repeat;
+>>>>>>> 3b6b7ae1383f3d6551069a74070a55c515411292
+>>>>>>> Stashed changes
 }
 
 @media (max-width: 760px) {
@@ -1274,6 +1348,11 @@ a.card:hover { background: var(--yellow); }
 
 /* leave room for the sticky sub-nav when jumping to a section */
 html:has(.subnav) { scroll-padding-top: 136px; }
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
 
 /* ---------- Downloads + PDF preview ---------- */
 
@@ -1471,3 +1550,7 @@ html:has(.subnav) { scroll-padding-top: 136px; }
   .pdf-actions .btn-label { display: none; }
   .pdf-pages { padding: 12px; gap: 12px; }
 }
+<<<<<<< Updated upstream
+=======
+>>>>>>> 3b6b7ae1383f3d6551069a74070a55c515411292
+>>>>>>> Stashed changes
