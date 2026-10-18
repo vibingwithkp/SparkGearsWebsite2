@@ -4,8 +4,8 @@ This is a self-contained static website for rapid GitHub Pages deployment.
 
 ## Files
 
-- `index.html`, `programs.html`, `about.html`, `get-involved.html` are the four pages.
-- `styles.css` holds all shared styles; `site.js` holds the interactions (breadboard hero, menu, program rail, galleries, lightbox, filters, tabs).
+- `index.html`, `for-teams.html`, `impact.html`, `about.html`, and `donate.html` are the five pages. `programs.html` and `get-involved.html` only redirect to `impact.html` and `for-teams.html` so old links keep working.
+- `styles.css` holds all shared styles; `site.js` holds the interactions (breadboard hero, menu, impact rail, galleries, lightbox, filters, tabs).
 - `assets/` contains local brand, team, and outreach images. `assets/web/` has resized copies of the big photos that the pages actually load; resize new photos to ~1400px wide before adding them.
 - `SparkGearsWebsite-package.zip` is the downloadable deployment package.
 
@@ -46,4 +46,4 @@ GitHub Pages will publish the site after the first build finishes.
 
 ## Notes
 
-The member roster and images were refreshed from the current team source. The community programs section includes hackathons and free outreach events including Code Crush, Code Crush Hackathon 2, library STEM stations, kickoff events, bootcamps, camps, and robotics courses.
+The site focuses on helping FTC teams (especially rookie teams) run outreach events, and on the partnerships Spark Gears has built in the U.S., India, and Pakistan. Placeholders the owner still needs to fill in are marked `[TODO: ...]` with a matching `<!-- TODO -->` comment.
