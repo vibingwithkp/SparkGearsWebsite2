@@ -1,22 +1,22 @@
 {
  "spark-gears-arduino-workshop-series.pdf": [
   {
-   "title": "Session 1: Traffic light",
+   "title": "Session 1, traffic light",
    "code": "// Traffic light: green, then yellow, then red, forever\nconst int RED = 8;\nconst int YELLOW = 9;\nconst int GREEN = 10;\n\nvoid setup() {\n  pinMode(RED, OUTPUT);\n  pinMode(YELLOW, OUTPUT);\n  pinMode(GREEN, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(GREEN, HIGH);   // go\n  delay(4000);\n  digitalWrite(GREEN, LOW);\n\n  digitalWrite(YELLOW, HIGH);  // slow down\n  delay(1500);\n  digitalWrite(YELLOW, LOW);\n\n  digitalWrite(RED, HIGH);     // stop\n  delay(4000);\n  digitalWrite(RED, LOW);\n}\n",
    "page": 4
   },
   {
-   "title": "Session 2: Reaction game",
+   "title": "Session 2, reaction-time game",
    "code": "// Reaction game: wait for the light, then press as fast as you can\nconst int LED = 9;\nconst int BUTTON = 2;\nconst int BUZZER = 8;\n\nvoid setup() {\n  pinMode(LED, OUTPUT);\n  pinMode(BUTTON, INPUT_PULLUP);   // pressed = LOW\n  pinMode(BUZZER, OUTPUT);\n  Serial.begin(9600);\n  randomSeed(analogRead(A0));      // different random waits every time\n}\n\nvoid loop() {\n  Serial.println(\"Get ready...\");\n  delay(random(2000, 5000));       // wait 2 to 5 seconds\n\n  digitalWrite(LED, HIGH);\n  unsigned long start = millis();\n  while (digitalRead(BUTTON) == HIGH) {\n    // wait here until the button is pressed\n  }\n  unsigned long reaction = millis() - start;\n  digitalWrite(LED, LOW);\n\n  Serial.print(\"Your time: \");\n  Serial.print(reaction);\n  Serial.println(\" ms\");\n\n  if (reaction < 300) {\n    tone(BUZZER, 1200, 300);       // fast: high tone\n  } else {\n    tone(BUZZER, 500, 300);        // slow: low tone\n  }\n  delay(2000);\n}\n",
    "page": 6
   },
   {
-   "title": "Session 3: Servo creature (button)",
+   "title": "Session 3, servo creature (button)",
    "code": "// Button version: each press moves the creature to its next pose\n#include <Servo.h>\n\nServo creature;\nconst int BUTTON = 2;\nint poses[] = {20, 90, 160};   // angles in degrees, change these\nint pose = 0;\n\nvoid setup() {\n  creature.attach(9);\n  pinMode(BUTTON, INPUT_PULLUP);\n  creature.write(poses[pose]);\n}\n\nvoid loop() {\n  if (digitalRead(BUTTON) == LOW) {\n    pose = (pose + 1) % 3;           // 0, 1, 2, back to 0\n    creature.write(poses[pose]);\n    delay(250);\n    while (digitalRead(BUTTON) == LOW) { }   // wait for release\n  }\n}\n",
    "page": 8
   },
   {
-   "title": "Session 3: Servo creature (knob)",
+   "title": "Session 3, servo creature (knob)",
    "code": "// Knob version: turn the potentiometer, the creature follows\n#include <Servo.h>\n\nServo creature;\n\nvoid setup() {\n  creature.attach(9);\n}\n\nvoid loop() {\n  int knob = analogRead(A0);              // 0 to 1023\n  int angle = map(knob, 0, 1023, 0, 180); // convert to 0 to 180 degrees\n  creature.write(angle);\n  delay(15);\n}\n",
    "page": 8
   }
@@ -25,7 +25,7 @@
   {
    "title": "CampDrive.java (TeleOp)",
    "code": "package org.firstinspires.ftc.teamcode;\n\nimport com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;\nimport com.qualcomm.robotcore.eventloop.opmode.TeleOp;\nimport com.qualcomm.robotcore.hardware.DcMotor;\n\n@TeleOp(name = \"Camp Drive\")\npublic class CampDrive extends LinearOpMode {\n    @Override\n    public void runOpMode() {\n        DcMotor left = hardwareMap.get(DcMotor.class, \"left\");\n        DcMotor right = hardwareMap.get(DcMotor.class, \"right\");\n        right.setDirection(DcMotor.Direction.REVERSE);\n\n        waitForStart();\n\n        while (opModeIsActive()) {\n            double drive = -gamepad1.left_stick_y;   // push forward = drive forward\n            double turn = gamepad1.right_stick_x;\n\n            left.setPower(drive + turn);\n            right.setPower(drive - turn);\n\n            telemetry.addData(\"Drive\", drive);\n            telemetry.addData(\"Turn\", turn);\n            telemetry.update();\n        }\n    }\n}\n",
-   "page": 5
+   "page": 4
   }
  ],
  "spark-gears-robotics-automation-course.pdf": [
