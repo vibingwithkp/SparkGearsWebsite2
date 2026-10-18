@@ -36,6 +36,9 @@ body {
   overflow-x: hidden;
 }
 
+/* tape strips on photo frames can poke past the gutter on phones */
+main { overflow-x: clip; }
+
 img { max-width: 100%; height: auto; display: block; }
 
 a { color: inherit; }
@@ -1140,6 +1143,62 @@ p { margin: 0; }
   .contact-grid { grid-template-columns: 1fr; }
 }
 
+/* ---------- Card grid ---------- */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: 12px;
+}
+
+.card {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding: 22px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 150ms;
+}
+a.card:hover { background: var(--yellow); }
+.card > span { font: 800 0.95rem/1 var(--display); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.card p { color: var(--muted); }
+.card .btn { justify-self: start; margin-top: 6px; min-height: 44px; }
+
+.section-foot { margin-top: clamp(24px, 3vw, 36px); }
+
+/* ---------- Photo placeholder (owner to supply) ---------- */
+
+.ph {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 16px;
+  background: repeating-linear-gradient(-45deg, var(--paper-2) 0 12px, var(--card) 12px 24px);
+  color: var(--ink);
+  text-align: center;
+}
+.ph span {
+  max-width: 30ch;
+  padding: 7px 11px 6px;
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  font: 800 0.95rem/1.15 var(--display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.rail-card .ph { height: 100%; background: repeating-linear-gradient(-45deg, var(--ink-2) 0 12px, #2f2b22 12px 24px); }
+.rail-card .ph span { background: var(--ink); color: var(--yellow); border-color: var(--yellow); }
+
+.gallery .ph { aspect-ratio: 3 / 2; border: 2px dashed var(--ink); border-radius: var(--radius); }
+.picker-panel .ph { aspect-ratio: 16 / 9; border-bottom: 2px solid var(--ink); }
+
 /* ---------- Footer ---------- */
 
 .site-footer {
@@ -1150,7 +1209,7 @@ p { margin: 0; }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.3fr 0.8fr 1fr 0.9fr;
+  grid-template-columns: 1.3fr 0.8fr 1fr;
   gap: 32px;
 }
 
@@ -1161,13 +1220,6 @@ p { margin: 0; }
 .site-footer a { color: var(--paper); text-decoration-color: rgba(244, 240, 230, 0.3); text-underline-offset: 3px; }
 .site-footer a:hover { color: var(--yellow); }
 .site-footer .about { margin-top: 14px; max-width: 34ch; font-size: 0.95rem; }
-
-.sponsor img {
-  width: 180px;
-  padding: 10px 14px;
-  background: #fff;
-  border-radius: 8px;
-}
 
 .footer-base {
   display: flex;
