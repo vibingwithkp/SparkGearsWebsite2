@@ -645,6 +645,7 @@ p { margin: 0; }
 
 .rail-card .body { display: grid; gap: 10px; padding: 18px 18px 22px; }
 .rail-card time { font: 800 1rem/1 var(--display); letter-spacing: 0.08em; text-transform: uppercase; color: var(--yellow); }
+.rail-card .body .logo { width: 56px; height: 56px; object-fit: contain; background: #fff; border-radius: 10px; padding: 4px; }
 .rail-card p { color: #cfc8b6; font-size: 0.97rem; }
 
 .rail-progress {
@@ -743,6 +744,7 @@ p { margin: 0; }
 .page-head h1 { font-size: clamp(3.2rem, 8vw, 6.6rem); max-width: 12ch; }
 /* longer titles: wider measure so they stay at three lines */
 .page-head h1.wide { font-size: clamp(2.05rem, 7vw, 5.6rem); max-width: 22ch; }
+.page-head h1.two-line { max-width: 17ch; }
 .page-head .lede { background: var(--paper); }
 
 /* ---------- Programs logbook ---------- */
@@ -1472,3 +1474,15 @@ html:has(.subnav) { scroll-padding-top: 136px; }
   .pdf-actions .btn-label { display: none; }
   .pdf-pages { padding: 12px; gap: 12px; }
 }
+
+/* ---------- Impact header world map ---------- */
+.page-head .head-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: center; gap: clamp(24px, 4vw, 56px); }
+.head-text { display: grid; gap: 20px; justify-items: start; }
+.worldmap { width: 100%; height: auto; display: block; }
+.worldmap .land { fill: var(--ink); opacity: 0.85; }
+.worldmap .pin { fill: var(--yellow); stroke: var(--ink); stroke-width: 2.5; }
+@media (max-width: 860px) {
+  .page-head .head-split { grid-template-columns: 1fr; }
+}
+.worldmap { overflow: visible; }
+.worldmap .pin-label { font: 700 22px var(--body); fill: var(--ink); paint-order: stroke; stroke: var(--paper); stroke-width: 5px; stroke-linejoin: round; }
