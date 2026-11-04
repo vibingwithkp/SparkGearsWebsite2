@@ -37,7 +37,6 @@
   <main id="main">
     <header class="page-head">
       <div class="wrap">
-        <p class="label">For FTC teams</p>
         <h1 class="wide">Run outreach like a veteran team, <span class="hl">even in your rookie year.</span></h1>
         <p class="lede">Free roadmaps, supplies, and mentor support for FTC teams that want to bring robotics to their community.</p>
         <div class="actions">
@@ -49,9 +48,8 @@
 
     <nav class="subnav" aria-label="On this page">
       <div class="wrap">
-        <a href="#why">Why outreach</a>
         <a href="#roadmap">Roadmap</a>
-        <a href="#formats">Event formats</a>
+        <a href="#why">Why outreach</a>
         <a href="#kit">Supply kits</a>
         <a href="#downloads">Downloads</a>
         <a href="#request">Request support</a>
@@ -59,12 +57,30 @@
       </div>
     </nav>
 
+    <section class="section on-ink" id="roadmap">
+      <div class="wrap split">
+        <div class="copy">
+          <h2>Five steps to <span class="hl">event day.</span></h2>
+          <p class="lede">You don't have to figure it out alone. A Spark Gears mentor walks through every step with your team.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#request">Start step one <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <ol class="steps vertical">
+          <li><h3>Pick your event</h3><p>We can help with an event idea you have, brainstorm one with your mentor, or choose one of our pre-planned events.</p></li>
+          <li><h3>Plan it with a mentor</h3><p>Have a Spark Gears mentor assigned to your team and have multiple meetings to plan, market, and set timelines for your event!</p></li>
+          <li><h3>Get the kit</h3><p>Supplies, slides, activity sheets, and a run-of-show for the day.</p></li>
+          <li><h3>Run it</h3><p>A mentor is on call during your event (in person when we can reach you in the DMV area).</p></li>
+          <li><h3>Log the impact</h3><p>We verify volunteer hours and help you capture photos and numbers for your portfolio.</p></li>
+        </ol>
+      </div>
+    </section>
+
     <section class="section" id="why">
       <div class="wrap">
         <div class="section-head">
           <div>
-            <p class="label">Why outreach matters</p>
-            <h2>It's good for your <span class="hl">team, too.</span></h2>
+            <h2>Outreach is a <span class="hl">necessity.</span></h2>
           </div>
         </div>
         <ol class="goals">
@@ -75,89 +91,10 @@
       </div>
     </section>
 
-    <section class="section on-ink" id="roadmap">
-      <div class="wrap split">
-        <div class="copy">
-          <p class="label">The roadmap</p>
-          <h2>Five steps to <span class="hl">event day.</span></h2>
-          <p class="lede">You don't have to figure it out alone. A Spark Gears mentor walks through every step with your team.</p>
-          <div class="actions">
-            <a class="btn btn-primary" href="#request">Start step one <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          </div>
-        </div>
-        <ol class="steps vertical">
-          <li><h3>Pick your event</h3><p>Library STEM station, school demo, intro robotics camp, or an Arduino workshop.</p></li>
-          <li><h3>Plan it with a mentor</h3><p>Have a Spark Gears mentor assigned to your team and have multiple meetings to plan, market, and set timelines for your event!</p></li>
-          <li><h3>Get the kit</h3><p>Supplies, slides, activity sheets, and a run-of-show for the day.</p></li>
-          <li><h3>Run it</h3><p>A mentor is on call during your event (in person when we can reach you in the DMV area).</p></li>
-          <li><h3>Log the impact</h3><p>We verify volunteer hours and help you capture photos and numbers for your portfolio.</p></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="section" id="formats">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="label">Event formats</p>
-            <h2>Pick a format.</h2>
-          </div>
-          <p class="lede">Four events we can help you run, from a single afternoon to a multi-day camp.</p>
-        </div>
-        <!-- TODO: owner to confirm the durations and audiences listed for each format below -->
-        <div class="picker">
-          <div class="picker-tabs" role="tablist" aria-label="Event formats">
-            <button class="picker-tab" role="tab" id="tab-library" aria-controls="panel-library" aria-selected="true" type="button"><span>Drop-in, all ages</span><strong>Library STEM station</strong></button>
-            <button class="picker-tab" role="tab" id="tab-demo" aria-controls="panel-demo" aria-selected="false" tabindex="-1" type="button"><span>Classroom or assembly</span><strong>School robotics demo</strong></button>
-            <button class="picker-tab" role="tab" id="tab-camp" aria-controls="panel-camp" aria-selected="false" tabindex="-1" type="button"><span>Multi-day</span><strong>Intro robotics camp</strong></button>
-            <button class="picker-tab" role="tab" id="tab-arduino" aria-controls="panel-arduino" aria-selected="false" tabindex="-1" type="button"><span>Beginner friendly</span><strong>Arduino workshop</strong></button>
-          </div>
-          <div class="picker-panel" role="tabpanel" id="panel-library" aria-labelledby="tab-library">
-            <img src="assets/web/gearbox-library-photo.jpg" alt="Kids gathered around a table of robotics parts at a library event" loading="lazy" />
-            <div class="body">
-              <h3>Library STEM station</h3>
-              <p>A drop-in robotics station at a public library event. Families come and go, and anyone can try driving a robot or building something small.</p>
-              <ul class="chips"><li class="chip">2–4 hours</li><li class="chip">Drop-in</li><li class="chip">All ages</li></ul>
-            </div>
-          </div>
-          <div class="picker-panel" role="tabpanel" id="panel-demo" aria-labelledby="tab-demo" hidden>
-            <!-- TODO: photo of a school robotics demo (16:9) -->
-            <div class="ph" role="img" aria-label="Photo placeholder: school robotics demo"><span>[TODO: school demo photo]</span></div>
-            <div class="body">
-              <h3>School robotics demo</h3>
-              <p>A short robot demo and talk about FIRST for a classroom or a school assembly.</p>
-              <ul class="chips"><li class="chip">1 hour</li><li class="chip">Classroom or assembly</li></ul>
-            </div>
-          </div>
-          <div class="picker-panel" role="tabpanel" id="panel-camp" aria-labelledby="tab-camp" hidden>
-            <!-- TODO: photo of an intro robotics camp (16:9) -->
-            <div class="ph" role="img" aria-label="Photo placeholder: intro robotics camp"><span>[TODO: camp photo]</span></div>
-            <div class="body">
-              <h3>Intro robotics camp</h3>
-              <p>Students form mini teams, then build, program, and present a robot together over several days.</p>
-              <ul class="chips"><li class="chip">Multi-day</li><li class="chip">Mini teams</li><li class="chip">Final presentation</li></ul>
-              <a class="text-link" href="downloads/spark-gears-ftc-intro-camp.pdf" data-pdf data-pdf-title="FTC intro robotics camp">See the camp plan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            </div>
-          </div>
-          <div class="picker-panel" role="tabpanel" id="panel-arduino" aria-labelledby="tab-arduino" hidden>
-            <!-- TODO: photo of an Arduino workshop (16:9) -->
-            <div class="ph" role="img" aria-label="Photo placeholder: Arduino workshop"><span>[TODO: Arduino workshop photo]</span></div>
-            <div class="body">
-              <h3>Arduino workshop</h3>
-              <p>A beginner-friendly session on lights, sensors, motion, and combining hardware with code.</p>
-              <ul class="chips"><li class="chip">2–3 hours</li><li class="chip">Beginner friendly</li><li class="chip">No experience needed</li></ul>
-              <a class="text-link" href="downloads/spark-gears-arduino-workshop-series.pdf" data-pdf data-pdf-title="Arduino workshop series">See the lesson plans <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="section rule-top" id="kit">
       <div class="wrap">
         <div class="section-head">
           <div>
-            <p class="label">Supply kits</p>
             <h2>What's in <span class="hl">the kit.</span></h2>
           </div>
           <p class="lede">Kits are limited each season. We prioritize rookie teams and Title I schools.</p>
@@ -187,38 +124,32 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <p class="label">Free downloads</p>
             <h2>Take what <span class="hl">you need.</span></h2>
           </div>
           <p class="lede">Lesson plans, planning guides, and printable forms. Free for any team, whether or not you request a kit.</p>
         </div>
         <div class="card-grid three downloads">
           <div class="card">
-            <span>Lesson plan · 9 pages</span>
             <h3>Arduino workshop series</h3>
             <p>Three standalone sessions for grades 5–8, with parts lists, timing, and starter code for each.</p>
             <a class="btn btn-ghost" href="downloads/spark-gears-arduino-workshop-series.pdf" data-pdf>Preview &amp; download</a>
           </div>
           <div class="card">
-            <span>Camp plan · 5 pages</span>
             <h3>FTC intro robotics camp</h3>
             <p>A five-day camp where middle schoolers build and program an FTC robot in mini teams.</p>
             <a class="btn btn-ghost" href="downloads/spark-gears-ftc-intro-camp.pdf" data-pdf>Preview &amp; download</a>
           </div>
           <div class="card">
-            <span>Syllabus · 5 pages</span>
             <h3>Robotics &amp; automation course</h3>
             <p>A nine-week course for grades 6–9. Students finish with a maze-solving robot they keep.</p>
             <a class="btn btn-ghost" href="downloads/spark-gears-robotics-automation-course.pdf" data-pdf>Preview &amp; download</a>
           </div>
           <div class="card">
-            <span>Planning guide · 2 pages</span>
             <h3>Outreach event roadmap</h3>
             <p>A checklist for each step of a first event, from finding a host to logging hours.</p>
             <a class="btn btn-ghost" href="downloads/spark-gears-outreach-roadmap.pdf" data-pdf>Preview &amp; download</a>
           </div>
           <div class="card">
-            <span>Template · 3 pages</span>
             <h3>Event run-of-show</h3>
             <p>An event-day timeline with roles, stations, and a packing list. Print it and fill it in.</p>
             <a class="btn btn-ghost" href="downloads/spark-gears-run-of-show.pdf" data-pdf>Preview &amp; download</a>
@@ -236,7 +167,6 @@
     <section class="section on-yellow rule-top" id="request">
       <div class="wrap cta">
         <div class="copy">
-          <p class="label">Request support</p>
           <h2>Tell us about your team.</h2>
           <p class="lede">Fill out a short form and a mentor will get back to you. The form asks for:</p>
           <ul class="checks">
@@ -258,7 +188,6 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <p class="label">Contact</p>
             <h2>Talk to a human.</h2>
           </div>
         </div>
